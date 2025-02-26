@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #007BFF;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+            color: #333333;
+        }
+        .content h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #666666;
+        }
+        .footer a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Welcome to Our Service!</h1>
+        </div>
+        <div class="content">
+            <h2>Hello @Model.Name,</h2>
+            <p>Thank you for registering with us. We're excited to have you on board and look forward to providing you with a great experience.</p>
+            <p>To get started, please verify your email address by clicking the button below:</p>
+            <p><a href="@Model.ConfirmationLink" class="button">Verify Email Address</a></p>
+            <p>If you have any questions or need assistance, feel free to reach out to our support team at <a href="mailto:support@example.com">support@example.com</a>.</p>
+            <p>Best regards,<br>The Team at TerraBound</p>
+        </div>
+        <div class="footer">
+            <p>You received this email because you signed up for an account with your Email. If you didn't sign up, please ignore this Email.</p>
+        </div>
+    </div>
+</body>
+</html>
