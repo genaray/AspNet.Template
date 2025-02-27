@@ -22,7 +22,7 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        //builder.Logging.ClearProviders();
+        Console.WriteLine("TEST");
         
         // Add asp.net & prometheus services
         builder.Services.AddControllers();
@@ -69,7 +69,7 @@ public class Program
                     {
                         opt.Endpoint = new Uri("http://otel-collector:4317"); // OTLP-Endpoint Otel-Collector
                         opt.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc; // Http for 4318
-                    }).AddConsoleExporter();
+                    });
             }
         );
         
