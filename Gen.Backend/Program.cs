@@ -4,6 +4,7 @@ using Gen.Backend;
 using Gen.Backend.Feature.AppUser;
 using Gen.Backend.Feature.Background;
 using Gen.Backend.Feature.Email;
+using Gen.Backend.Feature.Frontend;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,10 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        
+        // Map appsettings to setting classes
+        builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Email"));
+        builder.Services.Configure<FrontendSettings>(builder.Configuration.GetSection("Frontend"));
         
         // Custom services
         builder.Services.AddScoped<EmailTemplateRenderer>();
@@ -149,8 +154,11 @@ public class Program
         using (var scope = app.Services.CreateScope())
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             dbContext.Database.EnsureDeleted();  // Be careful with EnsureDeleted(), it deletes the database
             dbContext.Database.EnsureCreated();  // Ensures the database is created
+            AppDbContext.SeedAsync(userManager, roleManager).Wait();
         }
         
         app.UseRouting();

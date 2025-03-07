@@ -28,7 +28,7 @@ public class EmailService(EmailSender sender, EmailTemplateRenderer templateRend
     /// <param name="confirmationLink">The link to confirm the email.</param>
     public async Task SendConfirmEmail(string email, string username, string confirmationLink)
     {
-        var emailBody = await templateRenderer.RenderTemplateAsync("Email/RegistrationEmail.cshtml", new RegistrationTemplate{ Name = username, ConfirmationLink = confirmationLink});
+        var emailBody = await templateRenderer.RenderTemplateAsync("Email/RegistrationEmail", new RegistrationTemplate{ Name = username, ConfirmationLink = confirmationLink});
         await sender.SendEmailAsync(email, $"Welcome {username} - Confirm your Email", emailBody);
     }
     
@@ -40,7 +40,7 @@ public class EmailService(EmailSender sender, EmailTemplateRenderer templateRend
     /// <param name="resetLink">The link to reset the password.</param>
     public async Task SendResetPasswordEmail(string email, string username, string resetLink)
     {
-        var emailBody = await templateRenderer.RenderTemplateAsync("Email/PasswordResetEmail.cshtml", new PasswordResetTemplate{ Name = username, ResetLink = resetLink});
+        var emailBody = await templateRenderer.RenderTemplateAsync("Email/PasswordResetEmail", new PasswordResetTemplate{ Name = username, ResetLink = resetLink});
         await sender.SendEmailAsync(email, $"Reset your password", emailBody);
     }
 }

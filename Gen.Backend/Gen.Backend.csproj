@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
     </PropertyGroup>
 
     <ItemGroup>
@@ -54,38 +55,88 @@
       <Content Update="wwwroot\_app\version.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Frontend\dist\" />
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
       <None Include="wwwroot\favicon.png" />
       <None Include="wwwroot\index.html" />
       <None Include="wwwroot\_app\env.js" />
-      <None Include="wwwroot\_app\immutable\assets\0.CaACCid-.css" />
+      <None Include="wwwroot\_app\immutable\assets\0.BrUdl4nM.css" />
       <None Include="wwwroot\_app\immutable\assets\2.BgyqM5FD.css" />
-      <None Include="wwwroot\_app\immutable\assets\3.C1IftSni.css" />
+      <None Include="wwwroot\_app\immutable\assets\3._EzKUcgx.css" />
+      <None Include="wwwroot\_app\immutable\assets\4.C1IftSni.css" />
       <None Include="wwwroot\_app\immutable\assets\5.xcN17HQX.css" />
-      <None Include="wwwroot\_app\immutable\assets\_layout.DY3Vmlwd.css" />
+      <None Include="wwwroot\_app\immutable\assets\_layout.CDUns5io.css" />
       <None Include="wwwroot\_app\immutable\assets\_page.BgyqM5FD.css" />
       <None Include="wwwroot\_app\immutable\assets\_page.C1IftSni.css" />
       <None Include="wwwroot\_app\immutable\assets\_page.xcN17HQX.css" />
-      <None Include="wwwroot\_app\immutable\chunks\-JOFVg17.js" />
-      <None Include="wwwroot\_app\immutable\chunks\2A9HlnVk.js" />
-      <None Include="wwwroot\_app\immutable\chunks\BFBBZSuN.js" />
-      <None Include="wwwroot\_app\immutable\chunks\CeH3kpGo.js" />
-      <None Include="wwwroot\_app\immutable\chunks\CswYeIRD.js" />
-      <None Include="wwwroot\_app\immutable\chunks\DdS9fzYN.js" />
-      <None Include="wwwroot\_app\immutable\entry\app.Dzc2FWFb.js" />
-      <None Include="wwwroot\_app\immutable\entry\start.TKejAQVc.js" />
-      <None Include="wwwroot\_app\immutable\nodes\0.CAApynYG.js" />
-      <None Include="wwwroot\_app\immutable\nodes\1.BKSIe4nS.js" />
-      <None Include="wwwroot\_app\immutable\nodes\2.y4yJtBms.js" />
-      <None Include="wwwroot\_app\immutable\nodes\3.D2uyN4g3.js" />
-      <None Include="wwwroot\_app\immutable\nodes\4.lt2qar39.js" />
-      <None Include="wwwroot\_app\immutable\nodes\5.Dhr96g_m.js" />
+      <None Include="wwwroot\_app\immutable\assets\_page._EzKUcgx.css" />
+      <None Include="wwwroot\_app\immutable\chunks\BJvDeezO.js" />
+      <None Include="wwwroot\_app\immutable\chunks\BRHfN578.js" />
+      <None Include="wwwroot\_app\immutable\chunks\Brwc_Xfr.js" />
+      <None Include="wwwroot\_app\immutable\chunks\C5MQJRz6.js" />
+      <None Include="wwwroot\_app\immutable\chunks\CjRyryin.js" />
+      <None Include="wwwroot\_app\immutable\chunks\CmmFlQ4X.js" />
+      <None Include="wwwroot\_app\immutable\chunks\CQPrKkXZ.js" />
+      <None Include="wwwroot\_app\immutable\chunks\cwlP-1Bl.js" />
+      <None Include="wwwroot\_app\immutable\chunks\MtUUSOYe.js" />
+      <None Include="wwwroot\_app\immutable\chunks\SLWgEYqB.js" />
+      <None Include="wwwroot\_app\immutable\entry\app.CW6VXtg8.js" />
+      <None Include="wwwroot\_app\immutable\entry\start.BMx-Of6R.js" />
+      <None Include="wwwroot\_app\immutable\nodes\0.D9d5_XH5.js" />
+      <None Include="wwwroot\_app\immutable\nodes\1.BHHEH-HY.js" />
+      <None Include="wwwroot\_app\immutable\nodes\2.DVyyPRgl.js" />
+      <None Include="wwwroot\_app\immutable\nodes\3.BhabhKIf.js" />
+      <None Include="wwwroot\_app\immutable\nodes\4.DOjycqeT.js" />
+      <None Include="wwwroot\_app\immutable\nodes\5.D7hMRpOU.js" />
     </ItemGroup>
 
 </Project>

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Gen.Backend.Feature.AppUser;
 using Gen.Backend.Feature.Email;
+using Gen.Backend.Feature.Frontend;
+using Microsoft.Extensions.Options;
 
 namespace Gen.Backend.Feature.Authentication;
 
@@ -23,6 +25,7 @@ namespace Gen.Backend.Feature.Authentication;
 public class AuthenticateController(
     ILogger<AuthenticateController> logger, 
     IConfiguration configuration, 
+    IOptions<FrontendSettings> frontendSettings,
     UserManager<User> userManager, 
     RoleManager<IdentityRole> roleManager, 
     EmailService emailService
@@ -33,8 +36,7 @@ public class AuthenticateController(
     /// </summary>
     /// <param name="request">The <see cref="LoginRequest"/>.</param>
     /// <returns>An <see cref="Task{TResult}"/> with an <see cref="IActionResult"/>.</returns>
-    [HttpPost]
-    [Route("login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         
@@ -65,8 +67,7 @@ public class AuthenticateController(
     /// </summary>
     /// <param name="request">The <see cref="RegisterRequest"/>.</param>
     /// <returns>An <see cref="Task{TResult}"/> with an <see cref="IActionResult"/>.</returns>
-    [HttpPost]
-    [Route("register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
         var result = await CreateUserAsync(request);
@@ -78,8 +79,7 @@ public class AuthenticateController(
     /// </summary>
     /// <param name="request">The <see cref="RegisterRequest"/>.</param>
     /// <returns>An <see cref="Task{TResult}"/> with an <see cref="IActionResult"/>.</returns>
-    [HttpPost]
-    [Route("register-admin")]
+    [HttpPost("register-admin")]
     public async Task<IActionResult> RegisterAdmin([FromBody] RegisterRequest request)
     {
         var result = await CreateUserAsync(request);
@@ -115,8 +115,10 @@ public class AuthenticateController(
         
         // Send Confirmation-Email
         var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-        var confirmationLink = Url.Action("ConfirmEmail", "Authenticate", new { userId = user.Id, token }, Request.Scheme);
-
+        
+        //var confirmationLink = Url.Action("ConfirmEmail", "Authenticate", new { userId = user.Id, token }, Request.Scheme);
+        var confirmationLink = $"{frontendSettings.Value.ConfirmEmailUrl}?email={Uri.EscapeDataString(user.Email)}&token={Uri.EscapeDataString(token)}";
+        
         await emailService.SendConfirmEmail(user.Email, user.UserName, confirmationLink!);
         return (user, Success.UserCreated, []);
     }
@@ -124,19 +126,19 @@ public class AuthenticateController(
     /// <summary>
     /// Confirms the email of an <see cref="User"/>.
     /// </summary>
-    /// <param name="userId">The <see cref="User.Id"/>.</param>
+    /// <param name="email">The <see cref="IdentityUser{string}.Email"/>.</param>
     /// <param name="token">The confirmation token.</param>
     /// <returns>An <see cref="Task{TResult}"/> with the <see cref="ActionResult"/>.</returns>
-    [HttpGet]
-    public async Task<IActionResult> ConfirmEmail(string? userId, string? token)
+    [HttpPost("confirm-email")]
+    public async Task<IActionResult> ConfirmEmail(string? email, string? token)
     {
-        if (userId == null || token == null)
+        if (email == null || token == null)
         {
             return BadRequest(Error.InvalidLink);
         }
 
         // Check if user exists 
-        var user = await userManager.FindByIdAsync(userId);
+        var user = await userManager.FindByEmailAsync(email);
         if (user == null)
         {
             return NotFound(Error.UserNotFound);
@@ -155,10 +157,10 @@ public class AuthenticateController(
     /// <summary>
     /// Sends an email for changing the password.
     /// </summary>
-    /// <param name="request">The <see cref="ForgotPasswordRequest"/>.</param>
+    /// <param name="request">The <see cref="RequestPasswordResetRequest"/>.</param>
     /// <returns>An <see cref="Task{TResult}"/> with the <see cref="ActionResult"/>.</returns>
-    [HttpPost("forgot-password")]
-    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
+    [HttpPost("request-password-reset")]
+    public async Task<IActionResult> RequestPasswordReset([FromBody] RequestPasswordResetRequest request)
     {
         var user = await userManager.FindByEmailAsync(request.Email);
         if (user == null)
@@ -168,8 +170,8 @@ public class AuthenticateController(
 
         // Generate password reset token & link
         var token = await userManager.GeneratePasswordResetTokenAsync(user);
-        var resetLink = Url.Action("ResetPassword", "Authenticate", new { token, email = user.Email }, Request.Scheme);
-
+        var resetLink = $"{frontendSettings.Value.PasswordResetUrl}?email={Uri.EscapeDataString(user.Email)}&token={Uri.EscapeDataString(token)}";
+        
         // Send Email
         await emailService.SendResetPasswordEmail(user.Email!, user.UserName!, resetLink!);
         return Ok();
@@ -191,12 +193,11 @@ public class AuthenticateController(
 
         // Reset/change password
         var result = await userManager.ResetPasswordAsync(user, request.Token, request.NewPassword);
-        if (!result.Succeeded)
-        {
-            return BadRequest(Error.PasswordResetFailed);
-        }
-
-        return Ok(Success.PasswordReset);
+        if (result.Succeeded) return Ok(Success.PasswordReset);
+        
+        // Collect errors and send BadRequest
+        var errors = result.Errors.Select(e => e.Description).ToList();
+        return BadRequest(new { Message = Error.PasswordResetFailed, errors });
     }
 
 

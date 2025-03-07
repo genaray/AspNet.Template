@@ -34,10 +34,10 @@ public struct RegisterRequest
 }
 
 /// <summary>
-/// The <see cref="ForgotPasswordRequest"/> struct
+/// The <see cref="RequestPasswordResetRequest"/> struct
 /// Is a request that is sent to the associated controller when the <see cref="AppUser.User"/> forgot his password with his email included.
 /// </summary>
-public struct ForgotPasswordRequest
+public struct RequestPasswordResetRequest
 {
     [EmailAddress]
     [Required(ErrorMessage = "Email is required")]
@@ -54,9 +54,9 @@ public struct ResetPasswordRequest
     [Required(ErrorMessage = "Email is required")]
     public string Email { get; set; }
     
-    [Required(ErrorMessage = "Email is required")]
+    [Required(ErrorMessage = "Token is required")]
     public string Token { get; set; }
     
-    [Required(ErrorMessage = "Email is required")]
+    [Required(ErrorMessage = "Password is required")]
     public string NewPassword { get; set; }
 }
