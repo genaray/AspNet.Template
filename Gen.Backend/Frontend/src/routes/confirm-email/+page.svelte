@@ -1,19 +1,20 @@
 <script>
     import { onMount } from "svelte";
+    import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "$lib/components/ui/card";
+    import {Check, X, Loader2, CheckCircle, XCircle} from "lucide-svelte";
 
     let message = "Confirming your email...";
     let success = false;
-    let loading = true; 
+    let loading = true;
 
     onMount(async () => {
-        
         // Get params
         const params = new URLSearchParams(window.location.search);
         const email = params.get("email");
         const token = params.get("token");
 
         if (!email || !token) {
-            message = "Invalid confirmation link.";
+            message = "Invalid confirmation link. There was an issue with your link, it is probably corrupted or out of date. Please contact the support.";
             loading = false;
             return;
         }
@@ -39,48 +40,43 @@
     });
 </script>
 
-<!-- Screen with card -->
-<main class="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center justify-center">
-    <div class="w-full max-w-4xl mx-auto px-4">
-        <div class="text-center bg-white p-8 rounded-lg shadow-lg opacity-0 animate-fade-in">
+<main class="min-h-screen bg-background flex items-center justify-center">
+    
+    <!-- Card with fade-in animation -->
+    <div class="opacity-0 animate-fade-in">
+        <Card class="w-full max-w-4xl px-4 mx-4">
 
-            <!-- Loading anim or result -->
-            {#if loading}
-                <div class="flex flex-col items-center">
-                    <svg class="animate-spin h-10 w-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" stroke-width="4"></circle>
-                        <path stroke-linecap="round" stroke-width="4" d="M12 2v4m0 12v4m10-10h-4m-12 0H2"></path>
-                    </svg>
-                    <p class="text-xl text-gray-600 mt-4">Confirming your email...</p>
-                </div>
-            {:else}
-                <div class="flex items-center justify-center mb-6 opacity-0 animate-fade-in delay-100">
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center" class:bg-green-500={success} class:bg-red-500={!success}>
-                        
-                        <!--Success or failure icon-->
-                        {#if success}
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
+            <!-- Header fading in -->
+            <div class="opacity-0 animate-fade-in delay-100">
+                <CardHeader class="text-center">
+
+                    <!-- Icon -->
+                    <div class="flex items-center justify-center">
+                        {#if loading}
+                            <Loader2 class="h-16 w-16 text-blue-500 animate-spin" />
+                        {:else if success}
+                            <CheckCircle class="h-16 w-16 text-green-500" />
                         {:else}
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
+                            <XCircle class="h-16 w-16 text-red-500" />
                         {/if}
                     </div>
-
-                    <!--Success or failure title-->
-                    <h1 class="text-4xl font-bold text-gray-800 ml-4">
+    
+                    <!-- Title -->
+                    <CardTitle class="text-4xl font-bold text-gray-800">
                         {success ? "Email Confirmed!" : "Confirmation Failed"}
-                    </h1>
-                </div>
+                    </CardTitle>
+                </CardHeader>
+            </div>
 
-                <!--Display message-->
-                <p class="text-xl text-gray-600 mb-8 opacity-0 animate-fade-in delay-200">
-                    {message}
-                </p>
-            {/if}
-        </div>
+            <!-- Content with fade-in animation -->
+            <div class="opacity-0 animate-fade-in delay-200">
+                <CardContent class="text-center">
+                    <p class="text-xl text-gray-600">
+                        {message}
+                    </p>
+                </CardContent>
+            </div>
+        </Card>
     </div>
 </main>
 
@@ -95,14 +91,10 @@
     }
 
     .animate-fade-in {
-        animation: fade-in 1s ease-out forwards;
-    }
-
-    .delay-100 {
-        animation-delay: 0.2s;
+        animation: fade-in 0.5s ease-out forwards;
     }
 
     .delay-200 {
-        animation-delay: 0.4s;
+        animation-delay: 0.2s;
     }
 </style>

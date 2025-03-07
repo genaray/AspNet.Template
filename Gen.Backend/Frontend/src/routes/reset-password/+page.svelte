@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { fade } from "svelte/transition";
+    import {Button} from "$lib/components/ui/button/index.js";
 
     let email = "";
     let password = "";
@@ -103,7 +104,7 @@
                             {/each}
                         </ul>
                     {/if}
-                    
+                    <Button class="w-full">Test</Button>
                     <button type="submit" class="w-full px-8 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 opacity-0 animate-fade-in delay-300" disabled={isLoading}>{isLoading ? "Resetting Password..." : "Reset Password"}</button>
                 </form>
             {/if}

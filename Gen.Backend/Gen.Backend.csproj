@@ -103,40 +103,88 @@
       <Content Update="wwwroot\_app\version.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
       <None Include="wwwroot\favicon.png" />
       <None Include="wwwroot\index.html" />
       <None Include="wwwroot\_app\env.js" />
-      <None Include="wwwroot\_app\immutable\assets\0.BrUdl4nM.css" />
+      <None Include="wwwroot\_app\immutable\assets\0.BtdlyD3T.css" />
       <None Include="wwwroot\_app\immutable\assets\2.BgyqM5FD.css" />
-      <None Include="wwwroot\_app\immutable\assets\3._EzKUcgx.css" />
+      <None Include="wwwroot\_app\immutable\assets\3.BP7dAMOF.css" />
       <None Include="wwwroot\_app\immutable\assets\4.C1IftSni.css" />
       <None Include="wwwroot\_app\immutable\assets\5.xcN17HQX.css" />
-      <None Include="wwwroot\_app\immutable\assets\_layout.CDUns5io.css" />
+      <None Include="wwwroot\_app\immutable\assets\_layout.BtdlyD3T.css" />
       <None Include="wwwroot\_app\immutable\assets\_page.BgyqM5FD.css" />
+      <None Include="wwwroot\_app\immutable\assets\_page.BP7dAMOF.css" />
       <None Include="wwwroot\_app\immutable\assets\_page.C1IftSni.css" />
       <None Include="wwwroot\_app\immutable\assets\_page.xcN17HQX.css" />
-      <None Include="wwwroot\_app\immutable\assets\_page._EzKUcgx.css" />
-      <None Include="wwwroot\_app\immutable\chunks\BJvDeezO.js" />
-      <None Include="wwwroot\_app\immutable\chunks\BRHfN578.js" />
-      <None Include="wwwroot\_app\immutable\chunks\Brwc_Xfr.js" />
-      <None Include="wwwroot\_app\immutable\chunks\C5MQJRz6.js" />
-      <None Include="wwwroot\_app\immutable\chunks\CjRyryin.js" />
-      <None Include="wwwroot\_app\immutable\chunks\CmmFlQ4X.js" />
-      <None Include="wwwroot\_app\immutable\chunks\CQPrKkXZ.js" />
-      <None Include="wwwroot\_app\immutable\chunks\cwlP-1Bl.js" />
-      <None Include="wwwroot\_app\immutable\chunks\MtUUSOYe.js" />
-      <None Include="wwwroot\_app\immutable\chunks\SLWgEYqB.js" />
-      <None Include="wwwroot\_app\immutable\entry\app.CW6VXtg8.js" />
-      <None Include="wwwroot\_app\immutable\entry\start.BMx-Of6R.js" />
-      <None Include="wwwroot\_app\immutable\nodes\0.D9d5_XH5.js" />
-      <None Include="wwwroot\_app\immutable\nodes\1.BHHEH-HY.js" />
-      <None Include="wwwroot\_app\immutable\nodes\2.DVyyPRgl.js" />
-      <None Include="wwwroot\_app\immutable\nodes\3.BhabhKIf.js" />
-      <None Include="wwwroot\_app\immutable\nodes\4.DOjycqeT.js" />
-      <None Include="wwwroot\_app\immutable\nodes\5.D7hMRpOU.js" />
+      <None Include="wwwroot\_app\immutable\chunks\08h92UX4.js" />
+      <None Include="wwwroot\_app\immutable\chunks\3-mmu59c.js" />
+      <None Include="wwwroot\_app\immutable\chunks\5nsu28Qj.js" />
+      <None Include="wwwroot\_app\immutable\chunks\BbLdNV7l.js" />
+      <None Include="wwwroot\_app\immutable\chunks\Bx7MqdRf.js" />
+      <None Include="wwwroot\_app\immutable\chunks\COLSWdfr.js" />
+      <None Include="wwwroot\_app\immutable\chunks\CSlG_S7n.js" />
+      <None Include="wwwroot\_app\immutable\chunks\DDVRTY5K.js" />
+      <None Include="wwwroot\_app\immutable\chunks\DIOEzbhd.js" />
+      <None Include="wwwroot\_app\immutable\chunks\DsxP3q9E.js" />
+      <None Include="wwwroot\_app\immutable\chunks\eQ4RU8xr.js" />
+      <None Include="wwwroot\_app\immutable\chunks\U9ArNsE8.js" />
+      <None Include="wwwroot\_app\immutable\chunks\ue1dyXWy.js" />
+      <None Include="wwwroot\_app\immutable\entry\app.BBO0XJNN.js" />
+      <None Include="wwwroot\_app\immutable\entry\start.iVVrOH0s.js" />
+      <None Include="wwwroot\_app\immutable\nodes\0.CUkuuG_h.js" />
+      <None Include="wwwroot\_app\immutable\nodes\1.A11QgITZ.js" />
+      <None Include="wwwroot\_app\immutable\nodes\2.BSBeVgcu.js" />
+      <None Include="wwwroot\_app\immutable\nodes\3.DoaymnSu.js" />
+      <None Include="wwwroot\_app\immutable\nodes\4.DO8BBuD2.js" />
+      <None Include="wwwroot\_app\immutable\nodes\5.fXG5N1Oz.js" />
     </ItemGroup>
 
 </Project>
