@@ -22,6 +22,8 @@
     let isLoading = false;
 
     onMount(() => {
+        
+        // Extract url parameters
         const params = new URLSearchParams(window.location.search);
         email = params.get("email");
         token = params.get("token");
@@ -41,12 +43,15 @@
         errorMessage = "";
 
         try {
+            
+            // Send request
             const response = await fetch("http://localhost:8080/api/Authenticate/reset-password", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, token, newPassword: password })
             });
 
+            // Okay or extract errors
             if (response.ok) {
                 isSuccess = true;
             } else {

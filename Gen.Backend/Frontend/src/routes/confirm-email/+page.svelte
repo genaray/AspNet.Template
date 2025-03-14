@@ -8,6 +8,7 @@
     let loading = true;
 
     onMount(async () => {
+        
         // Get params
         const params = new URLSearchParams(window.location.search);
         const email = params.get("email");

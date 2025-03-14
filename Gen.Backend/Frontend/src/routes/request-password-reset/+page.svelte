@@ -24,12 +24,15 @@
         errorMessage = "";
 
         try {
+            
+            // Send request
             const response = await fetch("http://localhost:8080/api/Authenticate/request-password-reset", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email })
             });
 
+            // Extract ok or error
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || "An error occurred");
@@ -89,7 +92,8 @@
                                 {#if errorMessage}
                                     <div class="text-red-500">{errorMessage}</div>
                                 {/if}
-                                
+
+                                <!-- Send -->
                                 <Button type="submit" class="w-full" disabled={isLoading}>
                                     {#if isLoading}
                                         <Loader2 class="mr-2 animate-spin" /> Sending...
