@@ -1,13 +1,22 @@
 <script>
     import { onMount } from "svelte";
-    import { fade } from "svelte/transition";
+    import {
+        Card,
+        CardContent,
+        CardDescription,
+        CardFooter,
+        CardHeader,
+        CardTitle
+    } from "$lib/components/ui/card/index.js";
+    import {CheckCircle, Loader2, Lock, XCircle} from "lucide-svelte";
+    import {Input} from "$lib/components/ui/input/index.js";
     import {Button} from "$lib/components/ui/button/index.js";
 
     let email = "";
     let password = "";
     let confirmPassword = "";
     let token = "";
-    let success = false;
+    let isSuccess = false;
     let errorMessage = "";
     let errorList = [];
     let isLoading = false;
@@ -38,77 +47,90 @@
                 body: JSON.stringify({ email, token, newPassword: password })
             });
 
-            const responseData = await response.json();
-
             if (response.ok) {
-                success = true;
+                isSuccess = true;
             } else {
+                const responseData = await response.json();
                 errorMessage = responseData.message || "Password reset failed.";
                 errorList = responseData.errors || [];
             }
         } catch (error) {
-            errorMessage = "An error occurred. Please try again.";
+            errorMessage = `An error occurred: ${error.message}. Please try again.`;
         } finally {
             isLoading = false;
         }
     }
 </script>
 
-<main class="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center justify-center">
-    <div class="w-full max-w-4xl mx-auto px-4">
-        <div class="text-center bg-white p-8 rounded-lg shadow-lg opacity-0 animate-fade-in">
+<main class="min-h-screen bg-background flex items-center justify-center">
+    <div class="opacity-0 animate-fade-in">
 
-            <!-- Success-View -->
-            {#if success}
-                
-                <!-- Success-Symbol -->
-                <div class="flex justify-center mb-6 opacity-0 animate-fade-in delay-100">
-                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
+        <Card class="w-full max-w-4xl mx-auto p-6">
+
+            <!-- Card Header with icon fading in -->
+            <div class="opacity-0 animate-fade-in delay-100">
+                <CardHeader class="text-center">
+
+                    <!-- Icon -->
+                    <div class="flex items-center justify-center">
+                        {#if isLoading}
+                            <Loader2 class="h-16 w-16 text-blue-500 animate-spin" />
+                        {:else if !isLoading && !isSuccess}
+                            <Lock class="h-16 w-16" />
+                        {:else if isSuccess}
+                            <CheckCircle class="h-16 w-16 text-green-500" />
+                        {:else}
+                            <XCircle class="h-16 w-16 text-red-500" />
+                        {/if}
                     </div>
-                </div>
-                <h1 class="text-4xl font-bold text-gray-800 mb-4 opacity-0 animate-fade-in delay-100">Password Reset Successful</h1>
-                <p class="text-xl text-gray-600 opacity-0 animate-fade-in delay-100">You can now log in with your new password.</p>
 
-            <!-- Reset-View --> 
-            {:else}
+                    <!-- Title -->
+                    <CardTitle class="text-4xl font-bold text-gray-800">
+                        {isSuccess ? "Password Reset Successful" : "Reset your Password"}
+                    </CardTitle>
+                    <CardDescription class="text-xl">
+                        {isSuccess ? "You can now log in with your new password." : "Enter your new password below, and we'll update your account."}
+                    </CardDescription>
+                </CardHeader>
+            </div>
+
+            <!-- Card content with input form -->
+            {#if !isSuccess}
+                <div class="opacity-0 animate-fade-in delay-200">
+                    <CardContent>
+
+                        <!-- Input form -->
+                        <form on:submit|preventDefault={resetPassword} class="space-y-6">
+                            
+                            <input type="password" bind:value={password} placeholder="New Password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg opacity-0 animate-fade-in delay-200" />
+                            <input type="password" bind:value={confirmPassword} placeholder="Confirm Password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg opacity-0 animate-fade-in delay-200" />
+                            
+                            <!-- Errors -->
+                            {#if errorMessage}
+                                <p class="text-red-500">{errorMessage}</p>
+                            {/if}
+                            {#if errorList.length > 0}
+                                <ul class="text-red-500 list-disc list-inside">
+                                    {#each errorList as err}
+                                        <li>{err}</li>
+                                    {/each}
+                                </ul>
+                            {/if}
+
+                            <!-- Send -->
+                            <Button type="submit" class="w-full" disabled={isLoading}>
+                                {#if isLoading}
+                                    <Loader2 class="mr-2 animate-spin" /> Resetting password...
+                                {:else}
+                                    Reset password
+                                {/if}
+                            </Button>
+                        </form>
+                    </CardContent>
+                </div>
                 
-                <!-- Lock-Symbol -->
-                <div class="flex justify-center mb-6 opacity-0 animate-fade-in delay-100">
-                    <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                        </svg>
-                    </div>
-                </div>
-
-                <h1 class="text-4xl font-bold text-gray-800 mb-4 opacity-0 animate-fade-in delay-100">Reset Your Password</h1>
-                <p class="text-xl text-gray-600 mb-8 opacity-0 animate-fade-in delay-100">Enter your new password below.</p>
-
-                <!-- Form -->
-                <form class="space-y-6" on:submit|preventDefault={resetPassword}>
-                    
-                    <input type="password" bind:value={password} placeholder="New Password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg opacity-0 animate-fade-in delay-200" />
-                    <input type="password" bind:value={confirmPassword} placeholder="Confirm Password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg opacity-0 animate-fade-in delay-200" />
-
-                    <!-- Errors -->
-                    {#if errorMessage}
-                        <p class="text-red-500 mt-2 mb-2">{errorMessage}</p>
-                    {/if}
-                    {#if errorList.length > 0}
-                        <ul class="text-red-500 list-disc list-inside">
-                            {#each errorList as err}
-                                <li>{err}</li>
-                            {/each}
-                        </ul>
-                    {/if}
-                    <Button class="w-full">Test</Button>
-                    <button type="submit" class="w-full px-8 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 opacity-0 animate-fade-in delay-300" disabled={isLoading}>{isLoading ? "Resetting Password..." : "Reset Password"}</button>
-                </form>
             {/if}
-        </div>
+        </Card>
     </div>
 </main>
 

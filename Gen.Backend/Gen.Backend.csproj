@@ -148,43 +148,51 @@
       <Content Update="wwwroot\_app\version.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\_app\version.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
       <None Include="wwwroot\favicon.png" />
       <None Include="wwwroot\index.html" />
       <None Include="wwwroot\_app\env.js" />
-      <None Include="wwwroot\_app\immutable\assets\0.BtdlyD3T.css" />
+      <None Include="wwwroot\_app\immutable\assets\0.yDBvKxdg.css" />
       <None Include="wwwroot\_app\immutable\assets\2.BgyqM5FD.css" />
       <None Include="wwwroot\_app\immutable\assets\3.BP7dAMOF.css" />
       <None Include="wwwroot\_app\immutable\assets\4.C1IftSni.css" />
-      <None Include="wwwroot\_app\immutable\assets\5.xcN17HQX.css" />
-      <None Include="wwwroot\_app\immutable\assets\_layout.BtdlyD3T.css" />
+      <None Include="wwwroot\_app\immutable\assets\_layout.yDBvKxdg.css" />
       <None Include="wwwroot\_app\immutable\assets\_page.BgyqM5FD.css" />
       <None Include="wwwroot\_app\immutable\assets\_page.BP7dAMOF.css" />
       <None Include="wwwroot\_app\immutable\assets\_page.C1IftSni.css" />
-      <None Include="wwwroot\_app\immutable\assets\_page.xcN17HQX.css" />
-      <None Include="wwwroot\_app\immutable\chunks\08h92UX4.js" />
-      <None Include="wwwroot\_app\immutable\chunks\3-mmu59c.js" />
-      <None Include="wwwroot\_app\immutable\chunks\5nsu28Qj.js" />
-      <None Include="wwwroot\_app\immutable\chunks\BbLdNV7l.js" />
-      <None Include="wwwroot\_app\immutable\chunks\Bx7MqdRf.js" />
-      <None Include="wwwroot\_app\immutable\chunks\COLSWdfr.js" />
-      <None Include="wwwroot\_app\immutable\chunks\CSlG_S7n.js" />
-      <None Include="wwwroot\_app\immutable\chunks\DDVRTY5K.js" />
-      <None Include="wwwroot\_app\immutable\chunks\DIOEzbhd.js" />
-      <None Include="wwwroot\_app\immutable\chunks\DsxP3q9E.js" />
-      <None Include="wwwroot\_app\immutable\chunks\eQ4RU8xr.js" />
-      <None Include="wwwroot\_app\immutable\chunks\U9ArNsE8.js" />
-      <None Include="wwwroot\_app\immutable\chunks\ue1dyXWy.js" />
-      <None Include="wwwroot\_app\immutable\entry\app.BBO0XJNN.js" />
-      <None Include="wwwroot\_app\immutable\entry\start.iVVrOH0s.js" />
-      <None Include="wwwroot\_app\immutable\nodes\0.CUkuuG_h.js" />
-      <None Include="wwwroot\_app\immutable\nodes\1.A11QgITZ.js" />
-      <None Include="wwwroot\_app\immutable\nodes\2.BSBeVgcu.js" />
-      <None Include="wwwroot\_app\immutable\nodes\3.DoaymnSu.js" />
-      <None Include="wwwroot\_app\immutable\nodes\4.DO8BBuD2.js" />
-      <None Include="wwwroot\_app\immutable\nodes\5.fXG5N1Oz.js" />
+      <None Include="wwwroot\_app\immutable\chunks\Bf28UnkJ.js" />
+      <None Include="wwwroot\_app\immutable\chunks\Bgvmmllf.js" />
+      <None Include="wwwroot\_app\immutable\chunks\B__--y5C.js" />
+      <None Include="wwwroot\_app\immutable\chunks\CAqAddMC.js" />
+      <None Include="wwwroot\_app\immutable\chunks\CBgaa9dR.js" />
+      <None Include="wwwroot\_app\immutable\chunks\Cra7QahV.js" />
+      <None Include="wwwroot\_app\immutable\chunks\CUG_RBYX.js" />
+      <None Include="wwwroot\_app\immutable\chunks\DaRnA8da.js" />
+      <None Include="wwwroot\_app\immutable\chunks\g1ULNzmn.js" />
+      <None Include="wwwroot\_app\immutable\chunks\JfZJ-RtU.js" />
+      <None Include="wwwroot\_app\immutable\chunks\X5CYRM7K.js" />
+      <None Include="wwwroot\_app\immutable\entry\app.D3TY-Sa2.js" />
+      <None Include="wwwroot\_app\immutable\entry\start.B5jehQG3.js" />
+      <None Include="wwwroot\_app\immutable\nodes\0.CcoNgEgn.js" />
+      <None Include="wwwroot\_app\immutable\nodes\1.DhaQ1_LH.js" />
+      <None Include="wwwroot\_app\immutable\nodes\2.DC3OTraL.js" />
+      <None Include="wwwroot\_app\immutable\nodes\3.BIh8egra.js" />
+      <None Include="wwwroot\_app\immutable\nodes\4.DJGmgymO.js" />
+      <None Include="wwwroot\_app\immutable\nodes\5.DCzaA0T2.js" />
     </ItemGroup>
 
 </Project>
