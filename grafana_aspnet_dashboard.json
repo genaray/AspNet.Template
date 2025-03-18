@@ -1,0 +1,69 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "aspnet-metrics",
+    "title": "ASP.NET Core & Game Server Metrics",
+    "time": {
+      "from": "now-15m",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "title": "Active HTTP Requests",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "http_requests_received_total",
+            "legendFormat": "Total Requests",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "title": "Request Duration (ms)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+            "legendFormat": "95th Percentile",
+            "refId": "B"
+          }
+        ]
+      },
+      {
+        "title": "CPU Usage",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "process_cpu_seconds_total",
+            "legendFormat": "CPU Time",
+            "refId": "C"
+          }
+        ]
+      },
+      {
+        "title": "Memory Usage (MB)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "process_private_memory_bytes / 1024 / 1024",
+            "legendFormat": "Memory Usage",
+            "refId": "D"
+          }
+        ]
+      },
+      {
+        "title": "Active Players",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "game_active_players_total",
+            "legendFormat": "Players",
+            "refId": "E"
+          }
+        ]
+      }
+    ]
+  }
+}
+
