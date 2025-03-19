@@ -87,7 +87,9 @@ The backend sends:
 - **Metrics** to Prometheus
 
 Grafana reads from Prometheus, Tempo, and Loki for visualization.
-Login to Grafana, add Prometheus, Tempo and Loki as Datasources and use an Otel-Dashboard of your choice. 
+Login to Grafana, add Prometheus, Tempo and Loki as Datasources and use an Otel-Dashboard of your choice.
+However, the deployed grafana does not automatically display the dashboard and the datasources. You simply have to add them, import an AspNet-Otel dashboard of your choice and you're done!
+Since grafana is deployed in docker (like the other services) you may not be able to address it directly via grafana's localhost but have to address it using its container name.
 
 ## Contributing
 Feel free to submit pull requests or open issues!
