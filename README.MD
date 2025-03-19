@@ -69,17 +69,6 @@ This will:
    npm run dev
    ```
 
-## Accessing Services
-| Service                   | URL                                    |
-|---------------------------|----------------------------------------|
-| API (Swagger)             | http://localhost:8080/swagger          |
-| Svelte - Frontend         | http://localhost:8080                  |
-| Svelte - Request Password | http://localhost:8080/request-password |
-| Grafana                   | http://localhost:3000                  |
-| Prometheus                | http://localhost:9090                  |
-| Tempo (Traces)            | http://localhost:3200                  |
-| Loki (Logs)               | http://localhost:3100                  |
-
 ## Logging, Tracing & Metrics
 The backend sends:
 - **Logs** to Loki
@@ -90,6 +79,23 @@ Grafana reads from Prometheus, Tempo, and Loki for visualization.
 Login to Grafana, add Prometheus, Tempo and Loki as Datasources and use an Otel-Dashboard of your choice.
 However, the deployed grafana does not automatically display the dashboard and the datasources. You simply have to add them, import an AspNet-Otel dashboard of your choice and you're done!
 Since grafana is deployed in docker (like the other services) you may not be able to address it directly via grafana's localhost but have to address it using its container name.
+
+### Visualisation in grafana
+1. Deploy the backend using docker compose.
+2. Login to grafana http://localhost:3000 using the credentials set in the docker compose file. 
+3. Add Prometheus, Tempo, Loki as Datasources
+4. Import a AspNet-Otel-Dashboard of your choice (or the one included in this project)
+
+## Accessing Services
+| Service                   | URL                                    |
+|---------------------------|----------------------------------------|
+| API (Swagger)             | http://localhost:8080/swagger          |
+| Svelte - Frontend         | http://localhost:8080                  |
+| Svelte - Request Password | http://localhost:8080/request-password |
+| Grafana                   | http://localhost:3000                  |
+| Prometheus                | http://localhost:9090                  |
+| Tempo (Traces)            | http://localhost:3200                  |
+| Loki (Logs)               | http://localhost:3100                  |
 
 ## Contributing
 Feel free to submit pull requests or open issues!
