@@ -1,4 +1,4 @@
-namespace Gen.Backend.Feature.Email;
+namespace AspNet.Backend.Feature.Email;
 
 public struct RegistrationTemplate
 {

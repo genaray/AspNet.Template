@@ -1,10 +1,9 @@
 using System.Net;
 using System.Net.Mail;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 
-namespace Gen.Backend.Feature.Email;
+namespace AspNet.Backend.Feature.Email;
 
 /// <summary>
 /// The <see cref="EmailSender"/> class

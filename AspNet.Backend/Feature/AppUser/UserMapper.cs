@@ -1,7 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
 using Riok.Mapperly.Abstractions;
 
-namespace Gen.Backend.Feature.AppUser;
+namespace AspNet.Backend.Feature.AppUser;
 #pragma warning disable RMG020
 
 /// <summary>

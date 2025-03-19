@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Gen.Backend.Feature.AppUser;
+namespace AspNet.Backend.Feature.AppUser;
 
 /// <summary>
 /// The <see cref="CreateOrUpdateUserDto"/> struct

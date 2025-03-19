@@ -1,4 +1,4 @@
-namespace Gen.Backend.Feature.Frontend;
+namespace AspNet.Backend.Feature.Frontend;
 
 /// <summary>
 /// The <see cref="FrontendSettings"/> class

@@ -1,4 +1,4 @@
-namespace Gen.Backend.Feature;
+namespace AspNet.Backend.Feature;
 
 public static class Error
 {

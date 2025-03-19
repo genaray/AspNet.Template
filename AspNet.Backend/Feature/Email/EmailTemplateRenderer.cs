@@ -1,8 +1,6 @@
-namespace Gen.Backend.Feature.Email;
-
-using System.IO;
-using System.Threading.Tasks;
 using RazorLight;
+
+namespace AspNet.Backend.Feature.Email;
 
 /// <summary>
 /// The <see cref="EmailTemplateRenderer"/> class

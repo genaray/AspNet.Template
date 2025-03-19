@@ -1,4 +1,4 @@
-namespace Gen.Backend.Feature;
+namespace AspNet.Backend.Feature;
 
 /// <summary>
 /// The <see cref="PaginatedList{T}"/> class

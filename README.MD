@@ -1,7 +1,9 @@
 # ASP.NET Template with OpenTelemetry, PostgreSQL, and Svelte Frontend
 
 ## Overview
-This is an ASP.NET Core 8 Backend with OpenTelemetry integration for collecting metrics, traces, and logs. The collected data is sent to an OpenTelemetry Collector, which forwards it to Prometheus, Tempo, and Loki. Grafana is used for visualization.
+This is an ASP.NET Core 8 Backend with OpenTelemetry integration for collecting metrics, traces, and logs. 
+The collected data is sent to an OpenTelemetry Collector, which forwards it to Prometheus, Tempo, and Loki. Grafana is used for visualization.
+The Backend features a basic authentication using AspNet.Identity with an integrated Email-Sender. 
 
 The backend includes:
 - **Swagger** for API documentation.
@@ -28,7 +30,6 @@ cd your-repo
 Modify `appsettings.json` or environment variables for:
 - **Database Connection** (`ConnectionStrings:DefaultConnection`)
 - **Email Sender Settings** (`EmailSender` section)
-- **OpenTelemetry Exporters**
 As well as grafana, Otel-collector, tempo, Loki and prometheus config-files at the project root.
 
 ### 3. Build & Run the Project
@@ -41,7 +42,7 @@ This will:
 - Build the Svelte frontend and place it in `wwwroot`.
 - Start PostgreSQL, OpenTelemetry Collector, Prometheus, Tempo, Loki, and Grafana.
 
-#### Running Locally (Without Docker)
+#### Running Backend Locally (Without Docker)
 1. **Start PostgreSQL** manually and update connection strings in `appsettings.json`.
 2. **Build & run the backend**
    ```sh
@@ -58,16 +59,26 @@ This will:
    ```sh
    copy dist ../wwwroot
    ```
+   
+#### Running Frontend Locally (Without Docker)
+1. **Build the Svelte frontend**
+   ```sh
+   cd Frontend
+   npm install
+   npm run build
+   npm run dev
+   ```
 
 ## Accessing Services
-| Service              | URL                           |
-|----------------------|-------------------------------|
-| API (Swagger)       | http://localhost:8080/swagger |
-| Svelte Frontend     | http://localhost:8080         |
-| Grafana             | http://localhost:3000         |
-| Prometheus          | http://localhost:9090         |
-| Tempo (Traces)      | http://localhost:3200         |
-| Loki (Logs)         | http://localhost:3100         |
+| Service                   | URL                                    |
+|---------------------------|----------------------------------------|
+| API (Swagger)             | http://localhost:8080/swagger          |
+| Svelte - Frontend         | http://localhost:8080                  |
+| Svelte - Request Password | http://localhost:8080/request-password |
+| Grafana                   | http://localhost:3000                  |
+| Prometheus                | http://localhost:9090                  |
+| Tempo (Traces)            | http://localhost:3200                  |
+| Loki (Logs)               | http://localhost:3100                  |
 
 ## Logging, Tracing & Metrics
 The backend sends:
@@ -82,5 +93,5 @@ Login to Grafana, add Prometheus, Tempo and Loki as Datasources and use an Otel-
 Feel free to submit pull requests or open issues!
 
 ## License
-MIT License
+Apache2.0 License
 

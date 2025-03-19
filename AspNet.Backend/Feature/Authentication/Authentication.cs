@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Gen.Backend.Feature.Authentication;
+namespace AspNet.Backend.Feature.Authentication;
 
 /// <summary>
 /// The <see cref="LoginRequest"/> struct

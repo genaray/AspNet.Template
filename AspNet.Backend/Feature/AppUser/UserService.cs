@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Gen.Backend.Feature.AppUser;
+namespace AspNet.Backend.Feature.AppUser;
 
 /// <summary>
 /// The <see cref="UserService"/> class

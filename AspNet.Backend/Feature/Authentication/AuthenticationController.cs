@@ -1,15 +1,15 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AspNet.Backend.Feature.AppUser;
+using AspNet.Backend.Feature.Email;
+using AspNet.Backend.Feature.Frontend;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using Gen.Backend.Feature.AppUser;
-using Gen.Backend.Feature.Email;
-using Gen.Backend.Feature.Frontend;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
-namespace Gen.Backend.Feature.Authentication;
+namespace AspNet.Backend.Feature.Authentication;
 
 /// <summary>
 /// The <see cref="AuthenticateController"/> class
@@ -26,7 +26,7 @@ public class AuthenticateController(
     ILogger<AuthenticateController> logger, 
     IConfiguration configuration, 
     IOptions<FrontendSettings> frontendSettings,
-    UserManager<User> userManager, 
+    UserManager<AppUser.User> userManager, 
     RoleManager<IdentityRole> roleManager, 
     EmailService emailService
 ) : ControllerBase {
@@ -97,7 +97,7 @@ public class AuthenticateController(
     /// </summary>
     /// <param name="request">The <see cref="RegisterRequest"/>.</param>
     /// <returns>An <see cref="Task{TResult}"/> with User-Data indicating whether the User was created or not.</returns>
-    private async Task<(User? User, string Message, List<string> Details)> CreateUserAsync(RegisterRequest request)
+    private async Task<(AppUser.User? User, string Message, List<string> Details)> CreateUserAsync(RegisterRequest request)
     {
         if (await userManager.FindByNameAsync(request.Username) != null) return (null, Error.UserAlreadyExists, []);
 

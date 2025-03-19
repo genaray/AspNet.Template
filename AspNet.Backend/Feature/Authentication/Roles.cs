@@ -1,4 +1,4 @@
-namespace Gen.Backend.Feature.Authentication;
+namespace AspNet.Backend.Feature.Authentication;
 
 /// <summary>
 /// The <see cref="Roles"/> enum

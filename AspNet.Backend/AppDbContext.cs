@@ -1,10 +1,9 @@
-using Gen.Backend.Feature.AppUser;
+using AspNet.Backend.Feature.AppUser;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
-namespace Gen.Backend;
-
 using Microsoft.EntityFrameworkCore;
+
+namespace AspNet.Backend;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<User>(options)
 {

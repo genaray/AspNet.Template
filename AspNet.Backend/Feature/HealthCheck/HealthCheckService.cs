@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace Gen.Backend.Feature.HealthCheck;
+namespace AspNet.Backend.Feature.HealthCheck;
 
 /// <summary>
 /// The <see cref="HealthCheckService"/> class

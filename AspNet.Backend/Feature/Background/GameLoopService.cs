@@ -1,11 +1,6 @@
-namespace Gen.Backend.Feature.Background;
-
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
+
+namespace AspNet.Backend.Feature.Background;
 
 /// <summary>
 /// The <see cref="GameLoopService"/> class

@@ -1,29 +1,28 @@
 using System.Runtime.CompilerServices;
 using System.Text;
-using Gen.Backend;
-using Gen.Backend.Feature.AppUser;
-using Gen.Backend.Feature.Background;
-using Gen.Backend.Feature.Email;
-using Gen.Backend.Feature.Frontend;
+using AspNet.Backend.Feature.AppUser;
+using AspNet.Backend.Feature.Background;
+using AspNet.Backend.Feature.Email;
+using AspNet.Backend.Feature.Frontend;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using ExportProcessorType = OpenTelemetry.ExportProcessorType;
+using HealthCheckService = AspNet.Backend.Feature.HealthCheck.HealthCheckService;
 
-[assembly: InternalsVisibleTo("Gen.Backend.Tests")]
+[assembly: InternalsVisibleTo("AspNet.Backend.Tests")]
+namespace AspNet.Backend;
+
 public class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        Console.WriteLine("TEST");
         
         // Add asp.net & prometheus services
         builder.Services.AddControllers();
@@ -56,7 +55,7 @@ public class Program
                         opt.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc; // Http for 4318
                         reader.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds = 5000;
                     });
-                    //.AddPrometheusExporter();  // Prometheus 
+                //.AddPrometheusExporter();  // Prometheus 
             }).WithTracing(tracing =>
             {
                 tracing.AddAspNetCoreInstrumentation(options => { options.RecordException = true; })
@@ -68,18 +67,18 @@ public class Program
                         opt.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc; // Http for 4318
                     });
             }).WithLogging(logging =>
-            {
-                logging.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("Backend"))
-                    .AddOtlpExporter(opt =>
-                    {
-                        opt.Endpoint = new Uri("http://otel-collector:4317"); // OTLP-Endpoint Otel-Collector
-                        opt.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc; // Http for 4318
-                    });
-            }
-        );
+                {
+                    logging.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("Backend"))
+                        .AddOtlpExporter(opt =>
+                        {
+                            opt.Endpoint = new Uri("http://otel-collector:4317"); // OTLP-Endpoint Otel-Collector
+                            opt.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc; // Http for 4318
+                        });
+                }
+            );
         
         // Health check
-        builder.Services.AddHealthChecks().AddCheck<Gen.Backend.Feature.HealthCheck.HealthCheckService>(nameof(HealthCheckService));
+        builder.Services.AddHealthChecks().AddCheck<HealthCheckService>(nameof(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckService));
 
         // Connect to PostgreSQL
         //builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -92,24 +91,24 @@ public class Program
         
         // Adding Authentication & JWT-Bearer
         builder.Services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-            options.SaveToken = true;
-            options.RequireHttpsMetadata = false;
-            options.TokenValidationParameters = new TokenValidationParameters()
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidAudience = builder.Configuration["JWT:ValidAudience"],  // Access config files and insert value
-                ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
-            };
-        });
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration["JWT:ValidAudience"],  // Access config files and insert value
+                    ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+                };
+            });
 
         // Conditional logic for development environment (optional)
         if (builder.Environment.IsDevelopment())

@@ -1,9 +1,8 @@
-using Gen.Backend.Feature.Authentication;
+using AspNet.Backend.Feature.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace Gen.Backend.Feature.AppUser;
+namespace AspNet.Backend.Feature.AppUser;
 
 /// <summary>
 /// The <see cref="UsersController"/> class
