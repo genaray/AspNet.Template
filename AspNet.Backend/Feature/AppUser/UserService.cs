@@ -1,4 +1,9 @@
+using AspNet.Backend.Feature.Email;
+using AspNet.Backend.Feature.Frontend;
+using AspNet.Backend.Feature.Shared;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace AspNet.Backend.Feature.AppUser;
 
@@ -8,7 +13,13 @@ namespace AspNet.Backend.Feature.AppUser;
 /// </summary>
 /// <param name="context">The <see cref="AppDbContext"/>.</param>
 /// <param name="logger">The <see cref="ILogger{TCategoryName}"/>.</param>
-public class UserService(ILogger<UserService> logger, AppDbContext context)
+public class UserService(
+    ILogger<UserService> logger, 
+    IOptions<FrontendSettings> frontendSettings,
+    AppDbContext context, 
+    UserManager<User> userManager,
+    EmailService emailService
+)
 {
     /// <summary>
     /// Returns all users filtered by a <see cref="searchTerm"/> and pagination;
@@ -48,20 +59,58 @@ public class UserService(ILogger<UserService> logger, AppDbContext context)
         logger.LogInformation($"Fetching user with ID {id}...");
         return await context.Users.FindAsync(id);
     }
-
+    
     /// <summary>
-    /// Creates an <see cref="User"/>.
+    /// Creates an <see cref="User"/> async. 
     /// </summary>
-    /// <param name="userDto">The <see cref="CreateOrUpdateUserDto"/>.</param>
-    /// <returns>A <see cref="Task"/> with the created <see cref="User"/>.</returns>
-    public async Task<User> CreateUserAsync(CreateOrUpdateUserDto userDto)
+    /// <param name="username">His username.</param>
+    /// <param name="email">His email.</param>
+    /// <param name="password">His password.</param>
+    /// <returns>An <see cref="Task{TResult}"/> with User-Data indicating whether the User was created or not.</returns>
+    internal async Task<Response<User>> CreateUserAsync(string username, string email, string password)
     {
-        var user = userDto.ToEntity();
+        // Check if user exists
+        if (await userManager.FindByNameAsync(username) != null)
+        {
+            return new Response<User>
+            {
+                Result = new Result { Success = false, Error = new UserAlreadyExistsException(), },
+                Data = null
+            };   
+        }
+
+        // Create user
+        var user = new User
+        {
+            Email = email,
+            UserName = username,
+            SecurityStamp = Guid.NewGuid().ToString(),
+            RegisterDate = DateTime.Now,
+        };
+
+        // Register 
+        var result = await userManager.CreateAsync(user, password);
+        if (!result.Succeeded)
+        {
+            return new Response<User>
+            {
+                Result = new Result { Success = false, Error = new UserCreationFailedException(Error.UserCreationFailed, result.Errors.Select(e => e.Description).ToList()), },
+                Data = null
+            };   
+        }
         
-        context.Users.Add(user);
-        await context.SaveChangesAsync();
-        logger.LogInformation($"User created with ID {user.Id}.");
-        return user;
+        // Send Confirmation-Email
+        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+        
+        //var confirmationLink = Url.Action("ConfirmEmail", "Authenticate", new { userId = user.Id, token }, Request.Scheme);
+        var confirmationLink = $"{frontendSettings.Value.ConfirmEmailUrl}?email={Uri.EscapeDataString(user.Email)}&token={Uri.EscapeDataString(token)}";
+        
+        await emailService.SendConfirmEmail(user.Email, user.UserName, confirmationLink!);
+        return new Response<User>
+        {
+            Result = new Result { Success = true },
+            Data = user
+        };  
     }
 
     /// <summary>
