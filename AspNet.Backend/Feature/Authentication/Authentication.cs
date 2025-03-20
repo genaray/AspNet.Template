@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using AspNet.Backend.Feature.AppUser;
+using AspNet.Backend.Feature.Shared;
 
 namespace AspNet.Backend.Feature.Authentication;
 
@@ -17,6 +19,19 @@ public struct LoginRequest
 }
 
 /// <summary>
+/// The <see cref="LoginResponse"/> struct
+/// Is a response that is returned after a <see cref="LoginRequest"/>. 
+/// </summary>
+public struct LoginResponse
+{
+    public required Result Result { get; set; }
+    
+    public User? User { get; set; }
+    public string? Token { get; set; }
+    public DateTime? Expiration { get; set; }
+}
+
+/// <summary>
 /// The <see cref="RegisterRequest"/> struct
 /// Is a request that is sent to the associated controller at register with all register-specific data.
 /// </summary>
@@ -31,6 +46,17 @@ public struct RegisterRequest
     
     [Required(ErrorMessage = "Password is required")]
     public string Password { get; set; }
+}
+
+/// <summary>
+/// The <see cref="RegisterResponse"/> struct
+/// Is a response that is returned after a <see cref="RegisterRequest"/>. 
+/// </summary>
+public struct RegisterResponse
+{
+    public required Result Result { get; set; }
+    
+    public User? User { get; set; }
 }
 
 /// <summary>

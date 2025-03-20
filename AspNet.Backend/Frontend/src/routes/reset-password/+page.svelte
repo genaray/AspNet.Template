@@ -57,7 +57,7 @@
             } else {
                 const responseData = await response.json();
                 errorMessage = responseData.message || "Password reset failed.";
-                errorList = responseData.errors || [];
+                errorList = responseData.details || [];
             }
         } catch (error) {
             errorMessage = `An error occurred: ${error.message}. Please try again.`;
