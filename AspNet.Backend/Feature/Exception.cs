@@ -13,11 +13,11 @@ public static class AppExceptionExtensions
         return ex switch
         {
             // Auth
-            InvalidEmailOrPasswordException e => new UnauthorizedObjectResult(e.Message),
-            EmailNotConfirmedException e => new BadRequestObjectResult(e.Message),
+            InvalidEmailOrPasswordException e => new UnauthorizedObjectResult(new { e.Message }),
+            EmailNotConfirmedException e => new BadRequestObjectResult(new { e.Message }),
             UserCreationFailedException e => new BadRequestObjectResult(new {e.Message, e.Details}),
-            InvalidLinkException e => new BadRequestObjectResult(e.Message),
-            UserNotFoundException e => new NotFoundObjectResult(e.Message),
+            InvalidLinkException e => new BadRequestObjectResult(new { e.Message }),
+            UserNotFoundException e => new NotFoundObjectResult(new { e.Message }),
             PasswordResetFailedException e => new BadRequestObjectResult(new {e.Message, e.Details}),
         };
     }
