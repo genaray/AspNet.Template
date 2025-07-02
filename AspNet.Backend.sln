@@ -1,13 +1,41 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Backend", "AspNet.Backend\AspNet.Backend.csproj", "{FCDDABB8-7C9E-453D-AE4A-BD7AE9491F5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationService", "AuthenticationService\AuthenticationService.csproj", "{FCDDABB8-7C9E-453D-AE4A-BD7AE9491F5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0BA89E81-1216-4CC0-84BC-8FE008BA2229}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Backend.Tests", "AspNet.Backend.Tests\AspNet.Backend.Tests.csproj", "{5B07C5E7-BC59-46E0-81BE-63AFCDB4710A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService", "UserService\UserService.csproj", "{2E0B895F-C4BE-4ECE-8320-43B5D635E78A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{5E8A612E-61D8-4AE6-A9FB-0B55D6B132E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{5B1A8AF9-B778-415C-8CC4-E98C1EC22B4E}"
 	ProjectSection(SolutionItems) = preProject
+		authentication.dockerfile = authentication.dockerfile
+		user.dockerfile = user.dockerfile
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Backend.Tests", "AspNet.Backend.Tests\AspNet.Backend.Tests.csproj", "{5B07C5E7-BC59-46E0-81BE-63AFCDB4710A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{66D602F5-11C4-4FDD-8D19-CF2027A11F11}"
+	ProjectSection(SolutionItems) = preProject
+		authentication_postgres.yaml = authentication_postgres.yaml
+		authentication_service.yaml = authentication_service.yaml
+		user_postgres.yaml = user_postgres.yaml
+		user_service.yaml = user_service.yaml
+		kustomization.yaml = kustomization.yaml
+		prometheus_values.yaml = prometheus_values.yaml
+		prometheus_service.yaml = prometheus_service.yaml
+		otel_collector_values.yaml = otel_collector_values.yaml
+		otel_collector_configmap.yaml = otel_collector_configmap.yaml
+		otel_collector_service.yaml = otel_collector_service.yaml
+		tempo_values.yaml = tempo_values.yaml
+		tempo_service.yaml = tempo_service.yaml
+		loki_values.yaml = loki_values.yaml
+		loki_service.yaml = loki_service.yaml
+		grafana_values.yaml = grafana_values.yaml
+		grafana_service.yaml = grafana_service.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,5 +51,17 @@ Global
 		{5B07C5E7-BC59-46E0-81BE-63AFCDB4710A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B07C5E7-BC59-46E0-81BE-63AFCDB4710A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B07C5E7-BC59-46E0-81BE-63AFCDB4710A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E0B895F-C4BE-4ECE-8320-43B5D635E78A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E0B895F-C4BE-4ECE-8320-43B5D635E78A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E0B895F-C4BE-4ECE-8320-43B5D635E78A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E0B895F-C4BE-4ECE-8320-43B5D635E78A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8A612E-61D8-4AE6-A9FB-0B55D6B132E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8A612E-61D8-4AE6-A9FB-0B55D6B132E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8A612E-61D8-4AE6-A9FB-0B55D6B132E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8A612E-61D8-4AE6-A9FB-0B55D6B132E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5B1A8AF9-B778-415C-8CC4-E98C1EC22B4E} = {0BA89E81-1216-4CC0-84BC-8FE008BA2229}
+		{66D602F5-11C4-4FDD-8D19-CF2027A11F11} = {0BA89E81-1216-4CC0-84BC-8FE008BA2229}
 	EndGlobalSection
 EndGlobal

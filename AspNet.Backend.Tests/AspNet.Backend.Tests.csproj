@@ -26,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AspNet.Backend\AspNet.Backend.csproj" />
+      <ProjectReference Include="..\AuthenticationService\AuthenticationService.csproj" />
     </ItemGroup>
 
 </Project>

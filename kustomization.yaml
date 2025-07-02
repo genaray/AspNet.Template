@@ -1,0 +1,22 @@
+# kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+  
+# kubectl scale deployment --all --replicas=0 -n default
+# kubectl scale statefulset --all --replicas=0 -n default
+# kubectl scale daemonset --all --replicas=0 -n default
+
+# kubectl delete pods --all --all-namespaces
+# kubectl delete deployments --all -n default
+
+# To deploy all at once: kubectl apply -k .
+resources:
+  - prometheus_service.yaml
+  - tempo_service.yaml
+  - loki_service.yaml
+  - otel_collector_service.yaml
+  - grafana_service.yaml
+  - authentication_postgres.yaml
+  - authentication_service.yaml
+  - user_postgres.yaml
+  - user_service.yaml

@@ -1,25 +1,29 @@
 ﻿version: '3.8'
 services:
   
-  aspnet_backend:
-    image: aspnet.backend
-    container_name: aspnet_backend_app
+  # Auth-Service
+  authentication-service:
     build:
       context: .
-      dockerfile: AspNet.Backend/Dockerfile
+      dockerfile: authentication.dockerfile
+    image: authentication-service
+    container_name: authentication-service
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=backend-db;Username=admin;Password=pw
+      - ConnectionStrings__DefaultConnection=Host=authentication-postgres;Port=5432;Database=backend-db;Username=admin;Password=pw
     depends_on:
-      - postgres
+      authentication-postgres:
+        condition: service_healthy
+      otel-collector-healthcheck:
+          condition: service_healthy
     ports:
       - "8080:8080"
-      
-  # Database
-  postgres:
+        
+  # Auth-Service Database
+  authentication-postgres:
     image: postgres:latest
-    container_name: postgres_db
+    container_name: authentication-postgres-db
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: pw
@@ -27,59 +31,131 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - authentication_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+        
+  # User service
+  user-service:
+    build:
+      context: .
+      dockerfile: user.dockerfile
+    image: user-service
+    container_name: user-service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - ConnectionStrings__DefaultConnection=Host=user-postgres;Port=5432;Database=backend-db;Username=admin;Password=pw
+    depends_on:
+      user-postgres:
+        condition: service_healthy
+      otel-collector-healthcheck:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+      
+  # User-Service Database
+  user-postgres:
+    image: postgres:latest
+    container_name: user-postgres-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pw
+      POSTGRES_DB: backend-db
+    ports:
+      - "5433:5432"
+    volumes:
+      - user_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
         
   # Prometheus for metrics
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    depends_on:
-      - otel-collector
+    ports:
+      - "9090:9090" # Connection port
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - --config.file=/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:9090" ]
+      interval: 5s
+      timeout: 2s
+      retries: 10
       
   # Tempo for tracing
   tempo:
     image: grafana/tempo:latest
     container_name: tempo
-    depends_on:
-      - otel-collector
+    ports:
+      - "3200:3200"  # Connection port
+      - "4320:4317"  # OTLP gRPC
+      - "4321:4318"  # OTLP HTTP
     command: [ "-config.file=/etc/tempo.yml" ]
     volumes:
       - ./tempo.yml:/etc/tempo.yml
       - ./tempo-data:/tmp/tempo  # Saving locally
-    ports:
-      - "3200:3200"  # Tempo Web-UI
-      - "4320:4317"  # OTLP gRPC
-      - "4321:4318"  # OTLP HTTP
+    healthcheck:
+      test: ["CMD", "true"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
   
   # Loki for Logs
   loki:
     image: grafana/loki:latest
     container_name: loki
-    depends_on:
-      - otel-collector
     ports:
-      - "3100:3100"
+      - "3100:3100" # Connection port
     volumes:
       - ./loki.yml:/etc/loki/local-config.yml
     command: -config.file=/etc/loki/local-config.yml
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:3100/ready" ]
+      interval: 5s
+      timeout: 2s
+      retries: 5
     
   # OTEL Collector to receive logs, metrics and traces from the application
   otel-collector:
     container_name: otel-collector
     image: otel/opentelemetry-collector:latest
-    command: [ "--config=/etc/otel-collector.yml" ]
-    volumes:
-      - ./otel-collector.yml:/etc/otel-collector.yml
+    depends_on: # Start after these to prevent data loss etc! 
+      loki:
+        condition: service_healthy
+      tempo:
+        condition: service_healthy
+      prometheus:
+        condition: service_healthy
     ports:
       - "4317:4317"
       - "4318:4318"
       - "9201:9201"
+      - "13133:13133"
+    command: [ "--config=/etc/otel-collector.yml" ]
+    volumes:
+      - ./otel-collector.yml:/etc/otel-collector.yml
+      
+  otel-collector-healthcheck:
+    image: curlimages/curl:latest
+    container_name: otel-collector-healthcheck
+    depends_on:
+      - otel-collector
+    command: >
+      sh -c "until curl -sf http://otel-collector:13133; do echo 'Waiting for collector...'; sleep 2; done; echo 'Collector is ready'; tail -f /dev/null"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://otel-collector:13133" ]
+      interval: 5s
+      timeout: 2s
+      retries: 5
   
   # For dashboard, uses prometheus and tempo
   grafana:
@@ -87,11 +163,8 @@ services:
     container_name: grafana
     depends_on:
       - otel-collector
-      - prometheus
-      - tempo
-      - loki
     ports:
-      - "3000:3000"
+      - "3000:3000"  # Web Ui Port
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
@@ -100,6 +173,7 @@ services:
       - grafana_data:/var/lib/grafana
 
 volumes:
-  postgres_data:
+  authentication_postgres_data:
+  user_postgres_data:
   grafana_data:
 
