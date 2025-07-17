@@ -1,5 +1,10 @@
 # helm pull grafana/grafana --untar --untardir ./Charts --version 9.2.9
 
+# helm template grafana/grafana \
+# --namespace default \
+# --values grafana_values.yaml \
+# > grafana_service.yaml
+
 # Dashboard-Link: https://grafana.com/grafana/dashboards/20568-opentelemetry-dotnet-webapi/ rev6
 
 # grafana-values.yaml
@@ -13,9 +18,10 @@ image:
 
 # Service
 service:
-  type: ClusterIP
+  type: NodePort
   port: 3000
   targetPort: 3000
+  nodePort: 30002
 
 # Credentials
 adminUser: admin

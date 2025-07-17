@@ -22,13 +22,6 @@ RUN npm ci
 COPY ["AuthenticationService/Frontend/", "./"]
 RUN npm run build
 
-# 3) Debug-Ausgabe
-RUN echo "── BUILD-FRONTEND DEBUG ──" \
- && pwd \
- && ls -la . \
- && [ -d dist ] && echo "✓ dist exists" || echo "✗ dist missing" \
- && ls -la dist
-
 ################
 # Build ASP.Net
 ################
