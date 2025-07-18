@@ -1,6 +1,5 @@
-/*using System.Net.Http.Json;
-using AuthenticationService.Feature.AppUser;
-using AuthenticationService.Feature.UserCredentials;
+using System.Net.Http.Json;
+using AspNet.Backend.Feature.AppUser;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -60,8 +59,8 @@ public class UsersControllerIntegrationTests : IClassFixture<WebApplicationFacto
     public async Task GetUsers_ReturnsAllUsers()
     {
         // Arrange: Füge Testdaten hinzu
-        _context.Users.Add(new UserCredentials { Id = "1", FirstName = "John", LastName = "Doe", Email = "john@example.com", PasswordHash = "123" });
-        _context.Users.Add(new UserCredentials { Id = "2", FirstName = "Jane", LastName = "Smith", Email = "jane@example.com", PasswordHash = "456" });
+        _context.Users.Add(new User { Id = "1", FirstName = "John", LastName = "Doe", Email = "john@example.com", PasswordHash = "123" });
+        _context.Users.Add(new User { Id = "2", FirstName = "Jane", LastName = "Smith", Email = "jane@example.com", PasswordHash = "456" });
         await _context.SaveChangesAsync();
 
         // Act: HTTP GET request an den Endpoint
@@ -69,7 +68,7 @@ public class UsersControllerIntegrationTests : IClassFixture<WebApplicationFacto
 
         // Assert
         response.EnsureSuccessStatusCode();  // Status-Code ist 2xx
-        var users = await response.Content.ReadFromJsonAsync<List<UserCredentials>>();
+        var users = await response.Content.ReadFromJsonAsync<List<User>>();
         Assert.Equal(2, users.Count);  // Es gibt zwei Benutzer
     }
 
@@ -77,7 +76,7 @@ public class UsersControllerIntegrationTests : IClassFixture<WebApplicationFacto
     public async Task PostUser_UpdateUserInDatabase()
     {
         // Arrange: Existierender Benutzer in der Datenbank
-        var existingUser = new UserCredentials
+        var existingUser = new User
         {
             FirstName = "Alice",
             LastName = "Wonderland",
@@ -88,7 +87,7 @@ public class UsersControllerIntegrationTests : IClassFixture<WebApplicationFacto
         await _context.SaveChangesAsync();
 
         // Neue Daten für das Update
-        var updatedUser = new CreateOrUpdateUserCredentialsDto
+        var updatedUser = new CreateOrUpdateUserDto
         {
             FirstName = "Alicia",
             LastName = "Wonder",
@@ -113,7 +112,7 @@ public class UsersControllerIntegrationTests : IClassFixture<WebApplicationFacto
     public async Task DeleteUser_RemovesUserFromDatabase()
     {
         // Arrange: Füge einen Benutzer hinzu, den wir löschen können
-        var user = new UserCredentials { FirstName = "John", LastName = "Doe", Email = "john@example.com", PasswordHash = "123" };
+        var user = new User { FirstName = "John", LastName = "Doe", Email = "john@example.com", PasswordHash = "123" };
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
@@ -125,5 +124,5 @@ public class UsersControllerIntegrationTests : IClassFixture<WebApplicationFacto
         var userInDb = await _context.Users.FindAsync(user.Id);
         Assert.Null(userInDb); // Benutzer sollte nicht mehr in der DB sein
     }
-}*/
+}
 
