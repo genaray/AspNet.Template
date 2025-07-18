@@ -1,21 +1,11 @@
-﻿# Security Notes (For later)
-# No latest (Unplanned up/down grades or chain hijacking)
-# Secrets not as clear text 
-# Dbs should not be accessible from outside
-# Prevent container running as root to prevent breakouts (hardened images, ...)
-# Limit resources, otherwhise a container could eat up all resources (DoS)
-# Requires App-Layer-Auth (Reverse-Proxy, Network-Policies so only grafana can access tempo, loki, prometheus)
-# Destroy unused Health-Check containers 
-# Volumes RO by default (Otherwhise all container can change data)
-
-version: '3.8'
+﻿version: '3.8'
 services:
   
   # Auth-Service
   authentication-service:
     build:
-      context: ../
-      dockerfile: Docker/authentication.dockerfile
+      context: .
+      dockerfile: authentication.dockerfile
     image: authentication-service
     container_name: authentication-service
     environment:
@@ -51,8 +41,8 @@ services:
   # User service
   user-service:
     build:
-      context: ../
-      dockerfile: Docker/user.dockerfile
+      context: .
+      dockerfile: user.dockerfile
     image: user-service
     container_name: user-service
     environment:
@@ -92,7 +82,7 @@ services:
     ports:
       - "9090:9090" # Connection port
     volumes:
-      - ../Observability/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     healthcheck:
@@ -111,8 +101,8 @@ services:
       - "4321:4318"  # OTLP HTTP
     command: [ "-config.file=/etc/tempo.yml" ]
     volumes:
-      - ../Observability/tempo.yml:/etc/tempo.yml
-      - ../Observability/tempo-data:/tmp/tempo  # Saving locally
+      - ./tempo.yml:/etc/tempo.yml
+      - ./tempo-data:/tmp/tempo  # Saving locally
     healthcheck:
       test: ["CMD", "true"]
       interval: 5s
@@ -126,7 +116,7 @@ services:
     ports:
       - "3100:3100" # Connection port
     volumes:
-      - ../Observability/loki.yml:/etc/loki/local-config.yml
+      - ./loki.yml:/etc/loki/local-config.yml
     command: -config.file=/etc/loki/local-config.yml
     healthcheck:
       test: [ "CMD", "wget", "--spider", "-q", "http://localhost:3100/ready" ]
@@ -152,7 +142,7 @@ services:
       - "13133:13133"
     command: [ "--config=/etc/otel-collector.yml" ]
     volumes:
-      - ../Observability/otel-collector.yml:/etc/otel-collector.yml
+      - ./otel-collector.yml:/etc/otel-collector.yml
       
   otel-collector-healthcheck:
     image: curlimages/curl:latest

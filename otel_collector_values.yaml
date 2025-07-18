@@ -5,10 +5,10 @@
 #  --values otel_collector_values.yaml \
 #  > otel_collector_service.yaml
 
-# otel_collector_values.yaml
 nameOverride: otel-collector
 fullnameOverride: otel-collector
 
+# otel_collector_values.yaml
 mode: deployment
 replicaCount: 1
 
@@ -20,7 +20,7 @@ configMap:
   create: false
   existingName: otel-collector-configmap
 
-# Ports
+# ports als Map, nicht als Liste!
 ports:
   otlp:
     enabled: true

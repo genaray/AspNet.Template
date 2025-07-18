@@ -67,7 +67,7 @@ config: |-
 # Persistence, save local
 persistence:
   annotations: {}
-  enabled: false
+  enabled: true
   enableStatefulSetAutoDeletePVC: false
   accessModes:
     - ReadWriteOnce

@@ -12,52 +12,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{5B1A8AF9-B778-415C-8CC4-E98C1EC22B4E}"
 	ProjectSection(SolutionItems) = preProject
-		Docker\authentication.dockerfile = Docker\authentication.dockerfile
-		Docker\docker-compose.yml = Docker\docker-compose.yml
-		Docker\user.dockerfile = Docker\user.dockerfile
+		authentication.dockerfile = authentication.dockerfile
+		user.dockerfile = user.dockerfile
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{66D602F5-11C4-4FDD-8D19-CF2027A11F11}"
 	ProjectSection(SolutionItems) = preProject
-		k8s\authentication_postgres.yaml = k8s\authentication_postgres.yaml
-		k8s\authentication_service.yaml = k8s\authentication_service.yaml
-		k8s\grafana_service.yaml = k8s\grafana_service.yaml
-		k8s\grafana_values.yaml = k8s\grafana_values.yaml
-		k8s\kustomization.yaml = k8s\kustomization.yaml
-		k8s\loki_service.yaml = k8s\loki_service.yaml
-		k8s\loki_values.yaml = k8s\loki_values.yaml
-		k8s\otel_collector_configmap.yaml = k8s\otel_collector_configmap.yaml
-		k8s\otel_collector_service.yaml = k8s\otel_collector_service.yaml
-		k8s\otel_collector_values.yaml = k8s\otel_collector_values.yaml
-		k8s\prometheus_service.yaml = k8s\prometheus_service.yaml
-		k8s\prometheus_values.yaml = k8s\prometheus_values.yaml
-		k8s\tempo_service.yaml = k8s\tempo_service.yaml
-		k8s\tempo_values.yaml = k8s\tempo_values.yaml
-		k8s\user_postgres.yaml = k8s\user_postgres.yaml
-		k8s\user_service.yaml = k8s\user_service.yaml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Observability", "Observability", "{2CB56AAB-9F1B-42EE-B537-19ADBD6BC4F9}"
-	ProjectSection(SolutionItems) = preProject
-		Observability\grafana_aspnet_dashboard.json = Observability\grafana_aspnet_dashboard.json
-		Observability\grafana-datasources.yml = Observability\grafana-datasources.yml
-		Observability\loki.yml = Observability\loki.yml
-		Observability\otel-collector.yml = Observability\otel-collector.yml
-		Observability\prometheus.yml = Observability\prometheus.yml
-		Observability\tempo.yml = Observability\tempo.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terraform", "Terraform", "{41DC8522-8995-46FD-B5EA-B51D891179CA}"
-	ProjectSection(SolutionItems) = preProject
-		Terraform\main.tf = Terraform\main.tf
-		Terraform\variables.tf = Terraform\variables.tf
-		Terraform\kubeconfig.tpl = Terraform\kubeconfig.tpl
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ansible", "Ansible", "{9F17238F-6D81-4C0F-B9AC-01E772363375}"
-	ProjectSection(SolutionItems) = preProject
-		Ansible\inventory.ini = Ansible\inventory.ini
-		Ansible\prepare_environment.yml = Ansible\prepare_environment.yml
+		authentication_postgres.yaml = authentication_postgres.yaml
+		authentication_service.yaml = authentication_service.yaml
+		user_postgres.yaml = user_postgres.yaml
+		user_service.yaml = user_service.yaml
+		kustomization.yaml = kustomization.yaml
+		prometheus_values.yaml = prometheus_values.yaml
+		prometheus_service.yaml = prometheus_service.yaml
+		otel_collector_values.yaml = otel_collector_values.yaml
+		otel_collector_configmap.yaml = otel_collector_configmap.yaml
+		otel_collector_service.yaml = otel_collector_service.yaml
+		tempo_values.yaml = tempo_values.yaml
+		tempo_service.yaml = tempo_service.yaml
+		loki_values.yaml = loki_values.yaml
+		loki_service.yaml = loki_service.yaml
+		grafana_values.yaml = grafana_values.yaml
+		grafana_service.yaml = grafana_service.yaml
 	EndProjectSection
 EndProject
 Global
@@ -86,8 +63,5 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5B1A8AF9-B778-415C-8CC4-E98C1EC22B4E} = {0BA89E81-1216-4CC0-84BC-8FE008BA2229}
 		{66D602F5-11C4-4FDD-8D19-CF2027A11F11} = {0BA89E81-1216-4CC0-84BC-8FE008BA2229}
-		{2CB56AAB-9F1B-42EE-B537-19ADBD6BC4F9} = {0BA89E81-1216-4CC0-84BC-8FE008BA2229}
-		{41DC8522-8995-46FD-B5EA-B51D891179CA} = {0BA89E81-1216-4CC0-84BC-8FE008BA2229}
-		{9F17238F-6D81-4C0F-B9AC-01E772363375} = {0BA89E81-1216-4CC0-84BC-8FE008BA2229}
 	EndGlobalSection
 EndGlobal
